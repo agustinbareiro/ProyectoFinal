@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Blog - {% block titulo %} {% endblock titulo%}</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <p class="logo">#NuestroBlog!</p>
+            <div class="login">
+                {% if user.is_authenticated %}
+                <p>Bienvenido {{ user.username }} </p>
+                <a href="{% url 'logout'%}">Cerrar sesión</a>
+                {% else %}
+                <a href="{% url 'login'%}">Iniciar sesión</a>
+                <a href="{% url 'usuarios:register'%}">Registrar</a>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <nav>
+                <a href="{% url 'home'%}">Inicio</a>
+                <a href="{% url 'noticias:inicio'%}">Noticas</a>
+                <a href="{% url 'about'%}">Nosotros</a>
+                <a href="{% url 'help'%}">Ayuda</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+    </header>
+    {% block header %} {% endblock header%}
+</body>
+<footer>
+    <div class="container">
+        <p>Grupo 2 - Comisión 5</p>
+    </div>
+    {% block footer %} {% endblock footer%}
+</footer>
+</html>

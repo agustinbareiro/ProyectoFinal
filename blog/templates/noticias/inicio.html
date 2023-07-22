@@ -1,0 +1,14 @@
+{%extends 'index.html' %}
+{%load static %}
+{% block titulo %} Noticias {% endblock titulo %}
+{% block header %}
+
+{% for noticia in noticias %}
+<h1><a href="{% url 'noticias:inicio' %}">{{noticia.titulo}}</a></h1>
+<h6>{{noticia.fecha}} - {{noticia.categoria_noticias}}</h6>
+<p>{{ noticia.cuerpo }}</p>
+<img src="{{noticia.imagen.url}}" alt="">
+{% endfor %}
+
+
+{% endblock header %}
