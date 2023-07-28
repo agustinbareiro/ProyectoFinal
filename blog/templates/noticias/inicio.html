@@ -2,13 +2,15 @@
 {%load static %}
 {% block titulo %} Noticias {% endblock titulo %}
 {% block header %}
+{%for c in categorias %}
+<a href="?id={{c.pk}}">{{c.nombre}}</a>
+{%endfor%}
 
 {% for noticia in noticias %}
-<h1><a href="{% url 'noticias:inicio' %}">{{noticia.titulo}}</a></h1>
-<h6>{{noticia.fecha}} - {{noticia.categoria_noticias}}</h6>
+<h2><a href="{% url 'noticias:detalle' noticia.pk %}"><strong>{{noticia.titulo}}</strong></a></h2>
+<h6>{{noticia.fecha|date:"d M Y"}} - {{noticia.categoria_noticias}}</h6>
 <p>{{ noticia.cuerpo }}</p>
+<p>{{noticia.categoria_noticia}}</p>
 <img src="{{noticia.imagen.url}}" alt="">
 {% endfor %}
-
-
 {% endblock header %}

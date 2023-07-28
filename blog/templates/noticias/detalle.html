@@ -1,0 +1,23 @@
+{%extends 'index.html' %}
+{% load static %}
+{%block titulo%} {{noticia}} {%endblock titulo%}
+{%block header%}
+<section class="hero">
+    <h1>{{noticia}}</h1>
+    <p>{{noticia.fecha|date:"d M Y"}}</p>
+    <img src="{{noticia.imagen.url}}" alt="">
+    <p>{{noticia.cuerpo}}</p>
+    <p>{{noticia.categoria_noticia}}</p>
+</section>
+<form action="{% url 'noticias:comentar' %}" method="post"> {% csrf_token %}
+    <textarea name="comentario" cols="30" rows="5"></textarea>
+    <input type="text" name="id_noticia" value="{{ noticia.pk }}" hidden="">
+    <input type="submit" valor="comentar">
+</form>
+{% for com in comentarios %}
+<h3>Comentarios</h3>
+<p><strong>{{com.usuario}}</strong> ({{com.fecha}}): {{com.texto}}</p>
+{%endfor%}
+{%block barra_busqueda%}
+{%endblock barra_busqueda%} 
+{%endblock header%}

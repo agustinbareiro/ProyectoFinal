@@ -27,19 +27,19 @@ urlpatterns = [
     # path('', views.inicio, name='home'),
     path('admin/', admin.site.urls),
     # path para la URL de la vista de home
-    path('', views.home, name='home'),
+    path('', views.home, name='index'),
     # path para la URL de sobre nosotros
     path('about', views.about, name='about'),
     # path para la URL de sobre ayuda
     path('help', views.help, name='help'),
 
     #path URL APP NOTICIA
-    path('noticias/', include('apps.noticias.urls')),
+    path('news/', include('apps.noticias.urls')),
 
     # URL LOGIN
     path('login/', auth.LoginView.as_view(template_name= 'usuarios/login.html'), name='login'),
     path('logout/', auth.LogoutView.as_view(), name='logout'),
 
     # Registro
-    path('usuarios/', include('apps.usuarios.urls')),
+    path('users/', include('apps.usuarios.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
