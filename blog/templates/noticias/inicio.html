@@ -52,7 +52,7 @@
                         <div class="card-body">
                             <div class="small text-muted">{{noticia.fecha|date:"d M Y"}} - {{noticia.categoria_noticias}}</div>
                             <h2 class="card-title"><a href="{% url 'noticias:detalle' noticia.pk %}"><strong>{{noticia.titulo}}</strong></a></h2>
-                            <p class="card-text">{{ noticia.cuerpo }}</p>
+                            <p class="card-text justificar-texto">{{ noticia.cuerpo|linebreaksbr|safe }}</p>
                             <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Comentar</a>
                         </div>
                     </div>
