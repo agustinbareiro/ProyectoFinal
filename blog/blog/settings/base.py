@@ -82,8 +82,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 '''
-LOGIN_REDIRECT_URL = reverse_lazy('home')
-LOGOUT_REDIRECT_URL = reverse_lazy('home')
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 LOGIN_URL = reverse_lazy('login')
 
 AUTH_USER_MODEL = 'usuarios.Usuario'

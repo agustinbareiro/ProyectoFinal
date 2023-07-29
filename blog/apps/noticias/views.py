@@ -7,7 +7,6 @@ from django.db.models import Q
 #decorador para ver las noticias solamente como usuario logueado
 from django.contrib.auth.decorators import login_required
 
-
 @login_required
 def inicio(request):
     # ctx = {}
@@ -44,7 +43,7 @@ def Detalle_Noticias(request, pk):
     c = Comentario.objects.filter(noticia=n)
     contexto['comentarios'] = c
 
-    return render(request,'noticias/detalle.html', contexto)
+    return render(request,'noticias/detail.html', contexto)
 
 def contacto(request):
     data = {
