@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
     <title>Blog - {% block titulo %} {% endblock titulo%}</title>
 </head>
 <body>
@@ -46,7 +46,7 @@
         </div>
         <div>
             <nav>
-                <a href="{% url 'home'%}">Inicio</a>
+                {% comment %} <a href="{% url 'index1'%}">Inicio</a> {% endcomment %}
                 <a href="{% url 'noticias:inicio' %}">Noticias</a>
                 <a href="{% url 'about'%}">Nosotros</a>
                 <a href="{% url 'help' %}">Ayuda</a>

@@ -5,7 +5,7 @@ from django.db.models import Q
 # Create your views here.
 
 def home(request):
-    queryset = request.GET.get("buscar")    
+    queryset = request.GET.get("search")    
     noti = {}
     if queryset:
         v = Noticia.objects.filter(
@@ -14,7 +14,15 @@ def home(request):
          ).distinct()        
         noti['noticias'] = v        
     return render(request, 'index.html', noti)
+    # else:
+    #     ctx = {}
+    #     Noticia.objects.all()
+    #     # select * from noticia
+    #     noticia = Noticia.objects.all()
+    #     ctx["noticias"] = noticia
+    #     return render(request, 'index.html', ctx)
     
+
 def about(request):
     return render(request, 'about.html')
 

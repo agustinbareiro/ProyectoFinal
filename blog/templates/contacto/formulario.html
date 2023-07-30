@@ -166,39 +166,39 @@ texto=models.TextField() {% endcomment %}
     
 <main class="form-signin w-100 m-auto">
     <form method= 'POST'> {% csrf_token %}
-    <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto">
-    <h1 class="h3 mb-3 fw-normal">Contacto</h1> 
+        <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto">
+        <h1 class="h3 mb-3 fw-normal">Contacto</h1> 
 
-    <div class="form-floating">
-        <input id="nombre" type="text" class="form-control" name="nombre">
-        <label for="floatingInput">Nombre</label>
-    </div>
-    <div class="form-floating">
-        <input id="correo" type="email" class="form-control" name="correo">
-        <label for="floatingInput">Correo</label>
-    </div>
-    <div class="form-floating">
-        <input id="asunto" type="text" class="form-control" name="asunto">
-        <label for="floatingInput">Asunto</label>
-    </div>
-    <div class="form-floating">   
-        <input id="texto" type="text" class="form-control" name="texto">
-        <label for="floatingInput">Texto</label>
-    </div>
-    <div>
-        <p>
-        
-        <p>
-    </div>
-    <button class="btn btn-primary w-100 py-2" type="submit">Enviar</button>
-    {% comment %} <div class="text-center p-t-115">
-        <span class="txt1">
-        ¿No tienes una cuenta? 
-        </span>
-        <a class="txt2" href="{% url 'usuarios:register'%}">Regístrate
-        </a> {% endcomment %}
-    </div>
-    <p class="mt-5 mb-3 text-body-secondary">© 2023–2023</p>
+        <div class="form-floating">
+            <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+            <label for="floatingInput">Nombre</label>
+        </div>
+        <div class="form-floating">
+            <input id="correo" type="email" class="form-control" name="correo" placeholder="Dirección de email">
+            <label for="floatingInput">Dirección de email</label>
+        </div>
+        <div class="form-floating">
+            <input id="asunto" type="text" class="form-control" name="asunto" placeholder="Asunto">
+            <label for="floatingInput">Asunto</label>
+        </div>
+        <div class="form-floating">   
+            <input id="texto" type="text" class="form-control" name="texto" placeholder="Texto">
+            <label for="floatingInput">Texto</label>
+        </div>
+        <div>
+            <p>
+            
+            <p>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Enviar</button>
+        {% comment %} <div class="text-center p-t-115">
+            <span class="txt1">
+            ¿No tienes una cuenta? 
+            </span>
+            <a class="txt2" href="{% url 'usuarios:register'%}">Regístrate
+            </a> {% endcomment %}
+        </div>
+        <p class="mt-5 mb-3 text-body-secondary">© 2023–2023</p>
     </form>
 </main>
 <script src={% static 'js/bootstrap.bundle.min.js.descarga' %} integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
