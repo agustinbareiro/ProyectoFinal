@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Noticia, Categoria, Comentario, Contacto
-from .forms import ContactoForm
+from .models import Noticia, Categoria, Comentario
 from django.urls import reverse_lazy
 from django.db.models import Q
 
 #decorador para ver las noticias solamente como usuario logueado
 from django.contrib.auth.decorators import login_required
 
-@login_required
 def inicio(request):
     # ctx = {}
     # clase.objects.all()==> select * from noticia
@@ -29,7 +27,6 @@ def inicio(request):
 
     return render(request, 'noticias/inicio.html', contexto)
 
-
 # ClaseName.objects.all()             select * from noticias
 # ClaseName.objects.get(pk = 1)       select * from noticias where id = 1
 # ClaseName.objects.filter(categoria) select * from noticias where categorias = reviews
@@ -45,14 +42,7 @@ def Detalle_Noticias(request, pk):
 
     return render(request,'noticias/detail.html', contexto)
 
-def contacto(request):
-    data = {
-        'form': ContactoForm()
-    }
-    if request.method == 'POST':
-        ContactoForm(data=request.POST).save()
 
-    return render(request, 'contacto/formulario.html', data)
     
 
 @login_required
@@ -64,4 +54,3 @@ def Comentario_Noticia(request):
     coment = Comentario.objects.create(usuario= user, noticia= noticia, texto=comentario)
 
     return redirect(reverse_lazy('noticias:detalle',kwargs={"pk":noti}))
-

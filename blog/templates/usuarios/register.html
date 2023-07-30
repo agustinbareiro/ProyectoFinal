@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <!-- saved from url=(0051)https://getbootstrap.com/docs/5.3/examples/sign-in/ -->
-<html lang="en" data-bs-theme="dark"><script async="false" type="text/javascript" src="chrome-extension://fnjhmkhhmkbjkkabndcnnogagogbneec/in-page.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src={% static 'js/color-modes.js.descarga' %}></script>
+<html lang="es" data-bs-theme="dark"><script async="false" type="text/javascript" src="chrome-extension://fnjhmkhhmkbjkkabndcnnogagogbneec/in-page.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src={% static 'js/color-modes.js.descarga' %}></script>
 
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,13 +16,6 @@
 
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#712cf9">
 
 
@@ -156,30 +149,36 @@
   <form method= 'POST'> {% csrf_token %}
     <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto">
     <h1 class="h3 mb-3 fw-normal">Registrarse</h1>
-
     <div class="form-floating">
-      <input type="text" class="form-control" name="username" placeholder="Usuario">
-      {{ form.as_p}}
+        <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+        <label for="floatingInput">Nombre</label>
+    </div>
+    <div class="form-floating">
+      <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Apellido">
+      <label for="floatingInput">Apellido</label>
+    </div>
+    <div class="form-floating">
+      <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre de usuario">
       <label for="floatingInput">Nombre de usuario</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" name="password" placeholder="Contraseña">
+        <input id="correo" type="email" class="form-control" name="correo" placeholder="Dirección de email">
+        <label for="floatingInput">Dirección de email</label>
+    </div>
+    <div class="form-floating">
+      <input id="pasword1" type="password" class="form-control" name="password" placeholder="Contraseña">
       <label for="floatingPassword">Contraseña</label>
     </div>
-    <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        Recuérdame
-      </label>
+    <div class="form-floating">
+      <input id="pasword2" type="password" class="form-control" name="password" placeholder="Confirmación de contraseña">
+      <label for="floatingPassword">Confirmación de contraseña</label>
     </div>
-    <button class="btn btn-primary w-100 py-2" type="submit">Iniciar sesión</button>
-    <div class="text-center p-t-115">
-      <span class="txt1">
-      ¿No tienes una cuenta? 
-      </span>
-      <a class="txt2" href="{% url 'usuarios:register'%}">Regístrate
-      </a>
-      </div>
+    <div>
+        <p>
+        
+        <p>
+    </div>
+    <button class="btn btn-primary w-100 py-2" type="submit">Enviar</button>
     <p class="mt-5 mb-3 text-body-secondary">© 2023–2023</p>
   </form>
 </main>
