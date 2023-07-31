@@ -24,13 +24,14 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'noticias:inicio' %}">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a></li>
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-primary" href="{% url 'logout'%}">Cerrar sesión</a>                 
+                        {% else %}
+                        <a class="btn btn-primary" href="{% url 'login'%}">Iniciar sesión</a>
+                        <a class="btn btn-primary" href="{% url 'usuarios:register'%}">Registrarse</a></li>
+                        {% endif %}
                     </ul>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout'%}">Cerrar sesión</a>                 
-                    {% else %}
-                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'login'%}">Iniciar sesión</a>
-                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'usuarios:register'%}">Registrarse</a></li>
-                    {% endif %}
+                    
                 </div>
             </div>
         </nav>
@@ -39,7 +40,7 @@
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
-                    <!-- Featured blog post-->
+                    {% comment %} <!-- Featured blog post-->
                     {% for noticia in noticias %}
                     <div class="card mb-4">
                         <a href="{% url 'noticias:detalle' noticia.pk %}"><img class="card-img-top" src="{{noticia.imagen.url}}" alt=""></a>
@@ -50,7 +51,7 @@
                             <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Comentar</a>
                         </div>
                     </div>
-                    {% endfor %}
+                    {% endfor %} {% endcomment %}
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         {% for noticia in noticias %}
@@ -61,7 +62,7 @@
                                 <div class="card-body">
                                     <div class="small text-muted">{{noticia.fecha|date:"d M Y"}}</div>
                                     <h2 class="card-title h4">{{noticia.titulo}}</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+                                    {% comment %} <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p> {% endcomment %}
                                     <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Leer más →</a>
                                 </div>
                             </div>
@@ -100,6 +101,12 @@
                             </div>
                         </div> {% endcomment %}
                     </div>
+                    <!-- MOSTRAR POR PÁGINAS EN NOTICIAS  -->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <a class="btn btn-primary " href="{% url 'noticias:inicio' %}" role="button">Ver todas</a>
+                    </nav>
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
@@ -141,7 +148,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Side widget-->
+                    {% comment %} <!-- Side widget-->
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Ordenar por
@@ -152,7 +159,7 @@
                           <li><a class="dropdown-item" href="?order_by=titulo_asc">Antigüedad asc.</a></li>
                           <li><a class="dropdown-item" href="?order_by=titulo_desc">Antigüedad desc.</a></li>
                         </ul>
-                      </div>
+                    </div> {% endcomment %}
                     {% comment %} <div class="card mb-4">
                         <div class="card-header">Side Widget</div>
                         

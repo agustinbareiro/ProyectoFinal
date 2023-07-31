@@ -19,7 +19,7 @@ class RegistroForm(UserCreationForm):
             'username',
             'password1',
             'password2',
-            'avatar'
+            # 'avatar'
         }
 
 class ContactoForm(forms.ModelForm):
