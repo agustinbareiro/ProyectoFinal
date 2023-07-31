@@ -53,6 +53,7 @@ def inicio(request):
     cat = Categoria.objects.all().order_by('nombre')
     contexto['categorias'] = cat
     return render(request, 'noticias/inicio.html', contexto)
+
 # ClaseName.objects.all()             select * from noticias
 # ClaseName.objects.get(pk = 1)       select * from noticias where id = 1
 # ClaseName.objects.filter(categoria) select * from noticias where categorias = reviews
