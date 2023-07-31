@@ -1,4 +1,4 @@
-
+{%load static %}
 {% comment %} <h1>Contacto</h1>
 
 <form action="" method='POST'> {% csrf_token %}
@@ -166,7 +166,8 @@ texto=models.TextField() {% endcomment %}
     
 <main class="form-signin w-100 m-auto">
     <form method= 'POST'> {% csrf_token %}
-        <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto">
+        <a class="logo" href="{% url 'index'%}"><img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto"></a>
+        <!-- <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto"> -->
         <h1 class="h3 mb-3 fw-normal">Contacto</h1> 
 
         <div class="form-floating">
