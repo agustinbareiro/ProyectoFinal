@@ -27,12 +27,6 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a></li>
                         <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li> -->
                     </ul>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout'%}">Cerrar sesión</a>                 
-                    {% else %}
-                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'login'%}">Iniciar sesión</a>
-                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'usuarios:register'%}">Registrarse</a></li>
-                    {% endif %}
                 </div>
             </div>
         </nav>
@@ -57,24 +51,16 @@
                         <div class="card-body">
                             <div class="small text-muted">{{noticia.fecha|date:"d M Y"}} - {{noticia.categoria_noticias}}</div>
                             <h2 class="card-title"><a href="{% url 'noticias:detalle' noticia.pk %}"><strong>{{noticia.titulo}}</strong></a></h2>
-                            {% with truncated_cuerpo=noticia.cuerpo|truncatewords_html:100 %}
-                                {% if truncated_cuerpo != noticia.cuerpo %}
-                                    {% with display_cuerpo=truncated_cuerpo|slice:":-3"|add:"..." %}
-                                        <p class="card-text justificar-texto">{{ display_cuerpo|linebreaksbr|safe }}</p>
-                                    {% endwith %}
-                                {% else %}
-                                    <p class="card-text justificar-texto">{{ truncated_cuerpo|linebreaksbr|safe }}</p>
-                                {% endif %}
-                            {% endwith %}
+                            <p class="card-text justificar-texto">{{ noticia.cuerpo|linebreaksbr|safe }}</p>
                             <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Comentar</a>
                         </div>
                     </div>
                     {% endfor %}
-                    <!-- Nested row for non-featured blog posts
+                    <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         <div class="col-lg-6">
-                            Blog post -->
-                            <!-- {% for noticia in noticias %}
+                            <!-- Blog post-->
+                            {% for noticia in noticias %}
                             <div class="card mb-4">
                                 <a href="{% url 'noticias:detalle' noticia.pk %}"><img class="card-img-top" src="{{noticia.imagen.url}}" width = "700" alt=""></a>
                                 <div class="card-body">
@@ -83,10 +69,10 @@
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                                     <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Leer más →</a>
                                 </div>
-                            </div> -->
-                            <!-- {% endfor %} -->
+                            </div>
+                            {% endfor %}
                             <!-- Blog post-->
-                            <!-- <div class="card mb-4">
+                            <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                                 <div class="card-body">
                                     <div class="small text-muted">January 1, 2023</div>
@@ -95,10 +81,10 @@
                                     <a class="btn btn-primary" href="#!">Read more →</a>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="col-lg-6"> -->
+                        </div>
+                        <div class="col-lg-6">
                             <!-- Blog post-->
-                            <!-- <div class="card mb-4">
+                            <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                                 <div class="card-body">
                                     <div class="small text-muted">January 1, 2023</div>
@@ -106,9 +92,9 @@
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                                     <a class="btn btn-primary" href="#!">Read more →</a>
                                 </div>
-                            </div> -->
+                            </div>
                             <!-- Blog post-->
-                            <!-- <div class="card mb-4">
+                            <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                                 <div class="card-body">
                                     <div class="small text-muted">January 1, 2023</div>
@@ -117,8 +103,8 @@
                                     <a class="btn btn-primary" href="#!">Read more →</a>
                                 </div>
                             </div>
-                        </div> -->
-                    <!-- </div> -->
+                        </div>
+                    </div>
                     <!-- MOSTRAR POR PÁGINAS EN NOTICIAS  -->
                     <!-- <nav aria-label="Pagination">
                         <hr class="my-0" />
