@@ -20,10 +20,9 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'index'%}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index'%}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'noticias:inicio' %}">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'help' %}">Ayuda</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a></li>
                     </ul>
                     {% if user.is_authenticated %}
@@ -54,18 +53,19 @@
                     {% endfor %}
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
+                        {% for noticia in noticias %}
                         <div class="col-lg-6">
                             <!-- Blog post-->
                             <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                                <a href="{% url 'noticias:detalle' noticia.pk %}"><img class="card-img-top" src="{{noticia.imagen.url}}" width = "700" alt=""></a>
                                 <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
+                                    <div class="small text-muted">{{noticia.fecha|date:"d M Y"}}</div>
+                                    <h2 class="card-title h4">{{noticia.titulo}}</h2>
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
+                                    <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Leer más →</a>
                                 </div>
                             </div>
-                            <!-- Blog post-->
+                            {% comment %} <!-- Blog post-->
                             <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                                 <div class="card-body">
@@ -74,9 +74,10 @@
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                                     <a class="btn btn-primary" href="#!">Read more →</a>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
-                        <div class="col-lg-6">
+                        {% endfor %}
+                        {% comment %} <div class="col-lg-6">
                             <!-- Blog post-->
                             <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
@@ -97,7 +98,7 @@
                                     <a class="btn btn-primary" href="#!">Read more →</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
                 <!-- Side widgets-->
@@ -120,26 +121,23 @@
                     </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Categories</div>
+                        <div class="card-header">Categorias</div>
                         <div class="card-body">
                             <div class="row">
+                                {%for c in categorias %}
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        {%for c in categorias %}
-                                        <a href="?id={{c.pk}}">{{c.nombre}}</a>
-                                        {%endfor%}
-                                        <!-- <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li> -->
+                                        <li><a href="?id={{c.pk}}">{{c.nombre}}</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-sm-6">
+                                {%endfor%}
+                                {% comment %} <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
                                         <li><a href="#!">JavaScript</a></li>
                                         <li><a href="#!">CSS</a></li>
                                         <li><a href="#!">Tutorials</a></li>
                                     </ul>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -149,10 +147,10 @@
                           Ordenar por
                         </button>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Antigüedad asc.</a></li>
-                          <li><a class="dropdown-item" href="#">Antigüedad desc.</a></li>
-                          <li><a class="dropdown-item" href="#">Orden alfabético asc.</a></li>
-                          <li><a class="dropdown-item" href="#">Orden alfabético desc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=fecha_asc">Orden alfabético asc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=fecha_desc">Orden alfabético desc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=titulo_asc">Antigüedad asc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=titulo_desc">Antigüedad desc.</a></li>
                         </ul>
                       </div>
                     {% comment %} <div class="card mb-4">
@@ -163,13 +161,13 @@
                 </div>
             </div>
         </div>
-        {%for noticia in noticias %}
+        {% comment %} {%for noticia in noticias %}
 
         <h3><a href="{% url 'noticias:detalle' noticia.pk %}">{{noticia.titulo}}</a></h3>
         <p>{{noticia.fecha}}</p>    
         <img src="{{noticia.imagen.url}}" alt="">
 
-        {%endfor%}
+        {%endfor%} {% endcomment %}
 
 
         <!-- Footer-->
