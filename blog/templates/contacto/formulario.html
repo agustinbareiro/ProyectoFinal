@@ -20,23 +20,15 @@ texto=models.TextField() {% endcomment %}
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.115.4">
-    <title>Signin Template · Bootstrap v5.3</title>
+    <title>Contacto</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'img/icon.jpg' %}" />
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
     <link rel="stylesheet" href="{% static 'css/css@3' %}">
 
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-
 
     <style>
         .bd-placeholder-img {
@@ -166,7 +158,7 @@ texto=models.TextField() {% endcomment %}
     
 <main class="form-signin w-100 m-auto">
     <form method= 'POST'> {% csrf_token %}
-        <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto">
+        <a href="/"><img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="298" height="auto"></a>
         <h1 class="h3 mb-3 fw-normal">Contacto</h1> 
 
         <div class="form-floating">
@@ -185,6 +177,7 @@ texto=models.TextField() {% endcomment %}
             <input id="texto" type="text" class="form-control" name="texto" placeholder="Texto">
             <label for="floatingInput">Texto</label>
         </div>
+
         <div>
             <p>
             

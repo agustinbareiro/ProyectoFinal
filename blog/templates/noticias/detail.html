@@ -43,9 +43,7 @@
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">Publicado el {{noticia.fecha|date:"d M Y"}}</div>
                             <!-- Post categories-->
-                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:detalle' noticia.pk%}"><p>{{noticia.categoria_noticia}}</p></a>
-                            <p>{{noticia.categoria_noticia}}</p>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:inicio'%}">{{noticia.categoria_noticias}}</a>
                         </header>
                         <!-- Preview image figure-->
                         <figure class="mb-4"><img class="img-fluid rounded" src="{{noticia.imagen.url}}" alt="..." width = "900" /></figure>
