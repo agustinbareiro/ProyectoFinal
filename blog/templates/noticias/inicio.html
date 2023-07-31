@@ -21,24 +21,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'index'%}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'noticias:inicio' %}">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'noticias:inicio' %}">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'help' %}">Ayuda</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li> -->
                     </ul>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout'%}">Cerrar sesión</a>                 
+                    {% else %}
+                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'login'%}">Iniciar sesión</a>
+                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'usuarios:register'%}">Registrarse</a></li>
+                    {% endif %}
                 </div>
             </div>
         </nav>
-        <!-- Page header with logo and tagline-->
-        {% comment %} <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
-                <div class="text-center my-5">
-                    <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-                    <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
-                </div>
-            </div>
-        </header>  {% endcomment %}
         <!-- Page content-->
         <div class="container">
             <div class="row">
@@ -56,55 +51,6 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <!-- Nested row for non-featured blog posts-->
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            {% for noticia in noticias %}
-                            <div class="card mb-4">
-                                <a href="{% url 'noticias:detalle' noticia.pk %}"><img class="card-img-top" src="{{noticia.imagen.url}}" width = "700" alt=""></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">{{noticia.fecha|date:"d M Y"}}</div>
-                                    <h2 class="card-title h4">{{noticia.titulo}}</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Leer más →</a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- MOSTRAR POR PÁGINAS EN NOTICIAS  -->
                     <!-- <nav aria-label="Pagination">
                         <hr class="my-0" />
@@ -125,42 +71,57 @@
                     <div class="card mb-4">
                         <div class="card-header">Buscar</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Buscar un artículo..." aria-label="Enter search term..." aria-describedby="button-search" value="{{request.GET.buscar}}"/>
-                                <button class="btn btn-primary" id="button-search" type="button">Ir</button>
-                            </div>
+                            <form method="get">  
+                                <div class="input-group">
+                                {% comment %} <form method="get">  {% endcomment %}
+                                    {% comment %} <input type="text" class="form-control" placeholder="Buscar..." name="buscar" value="{{request.GET.buscar}}"> {% endcomment %}
+                                    <input class="form-control" type="text" placeholder="Buscar un artículo..." aria-label="Enter search term..." aria-describedby="button-search" name= "search"value="{{request.GET.buscar}}"/>
+                                    <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
+                                    {% comment %} <button type="submit" class="btn btn-primary"id="button-search"> Buscar </button> {% endcomment %}     
+                                {% comment %} </form> {% endcomment %}
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Categories</div>
+                        <div class="card-header">Categorias</div>
                         <div class="card-body">
                             <div class="row">
+                                {%for c in categorias %}
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        {%for c in categorias %}
-                                        <a href="?id={{c.pk}}">{{c.nombre}}</a>
-                                        {%endfor%}
-                                        <!-- <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li> -->
+                                        <li><a href="?id={{c.pk}}">{{c.nombre}}</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-sm-6">
+                                {%endfor%}
+                                {% comment %} <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
                                         <li><a href="#!">JavaScript</a></li>
                                         <li><a href="#!">CSS</a></li>
                                         <li><a href="#!">Tutorials</a></li>
                                     </ul>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
-                    <!-- Side widget
-                    <div class="card mb-4">
+                    <!-- Side widget-->
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Ordenar por
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="?order_by=fecha_asc">Orden alfabético asc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=fecha_desc">Orden alfabético desc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=titulo_asc">Antigüedad asc.</a></li>
+                          <li><a class="dropdown-item" href="?order_by=titulo_desc">Antigüedad desc.</a></li>
+                        </ul>
+                      </div>
+                    {% comment %} <div class="card mb-4">
                         <div class="card-header">Side Widget</div>
+                        
                         <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-                    </div> -->
+                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
