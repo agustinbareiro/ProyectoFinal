@@ -30,8 +30,10 @@ urlpatterns = [
     path('', views.home, name='index'),
     # path para la URL de sobre nosotros
     path('about', views.about, name='about'),
-    # path para la URL de sobre ayuda
-    path('help', views.help, name='help'),
+    # # path para la URL de sobre ayuda
+    # path('help', views.help, name='help'),
+
+    # path('', views.busqueda, name='index'),
 
     #path URL APP NOTICIA
     path('news/', include('apps.noticias.urls')),
