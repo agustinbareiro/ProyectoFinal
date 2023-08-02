@@ -17,5 +17,5 @@ def contacto(request):
     }
     if request.method == 'POST':
         ContactoForm(data=request.POST).save()
-
+    
     return render(request, 'contacto/formulario.html', data)
