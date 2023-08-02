@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Noticia, Categoria, Comentario
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -29,7 +29,7 @@ from django.contrib.auth.decorators import login_required
 def inicio(request):
     queryset = request.GET.get("search") 
     id_categoria = request.GET.get('id', None)
-    order_by = request.GET.get('order_by', 'fecha_desc')   
+    order_by = request.GET.get('order_by')   
     contexto = {}
     if queryset:
         v = Noticia.objects.filter(
@@ -38,7 +38,7 @@ def inicio(request):
          ).distinct().order_by('-titulo')   
         contexto['noticias'] = v        
     elif id_categoria:
-        v = Noticia.objects.filter(categoria_noticias = id_categoria)
+        v = Noticia.objects.filter(categoria_noticias = id_categoria).order_by('-fecha')
     elif order_by == 'fecha_asc':
         v = Noticia.objects.order_by('fecha')
     elif order_by == 'fecha_desc':
@@ -48,7 +48,7 @@ def inicio(request):
     elif order_by == 'titulo_desc':
         v = Noticia.objects.order_by('-titulo')
     else:
-        v = Noticia.objects.all().order_by('-titulo') #una lista
+        v = Noticia.objects.all().order_by('-fecha') #una lista
     contexto['noticias'] = v
     cat = Categoria.objects.all().order_by('nombre')
     contexto['categorias'] = cat
@@ -58,7 +58,6 @@ def inicio(request):
 # ClaseName.objects.get(pk = 1)       select * from noticias where id = 1
 # ClaseName.objects.filter(categoria) select * from noticias where categorias = reviews
 
-@login_required
 def Detalle_Noticias(request, pk):
     contexto = {}
     n = Noticia.objects.get(pk=pk)
@@ -78,3 +77,10 @@ def Comentario_Noticia(request):
     coment = Comentario.objects.create(usuario= user, noticia= noticia, texto=comentario)
 
     return redirect(reverse_lazy('noticias:detalle',kwargs={"pk":noti}))
+
+@login_required
+def borrar_comentario(request, comentario_id):
+    comentario = get_object_or_404(Comentario, pk=comentario_id, usuario=request.user)
+    noti_id = comentario.noticia.pk
+    comentario.delete()
+    return redirect(reverse_lazy('noticias:detalle', kwargs={"pk": noti_id}))
