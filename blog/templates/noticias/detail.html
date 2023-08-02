@@ -48,7 +48,9 @@
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">Publicado el {{noticia.fecha|date:"d M Y"}}</div>
                             <!-- Post categories-->
-                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:inicio'%}">{{noticia.categoria_noticias}}</a>
+
+                                <a class="badge bg-secondary text-decoration-none link-light" href="?id={{noticia.categoria_noticias.id}}">{{noticia.categoria_noticias}}</a>
+                            
                         </header>
                         <!-- Preview image figure-->
                         <figure class="mb-4"><img class="img-fluid rounded" src="{{noticia.imagen.url}}" alt="..." width = "900" /></figure>
@@ -75,7 +77,13 @@
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">{{com.usuario}}</div>
-                                        <p>{{com.texto}}</p>
+                                        <p>{{com.texto}}
+                                            {% if com.usuario_id == request.user.id %}
+                                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:borrar_comentario' com.id %}">Borrar comentario</a>
+                                            {% comment %} <a class= "borrar-comentario" href="{% url 'noticias:borrar_comentario' com.id %}">Borrar comentario</a> {% endcomment %}
+                                            {% endif %}
+                                        </p>
+                                        
                                     </div>
                                 </div>
                                 {%endfor%}
@@ -87,7 +95,7 @@
         </div>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; ARCADE 2023</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

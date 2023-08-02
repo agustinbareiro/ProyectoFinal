@@ -11,4 +11,7 @@ urlpatterns = [
 
     #url COMENTARIO
     path('comentario', views.Comentario_Noticia, name='comentar'),
+
+    #url Borrar comentario
+    path('borrar_comentario/<int:comentario_id>/', views.borrar_comentario, name='borrar_comentario'),
 ]
