@@ -48,9 +48,9 @@
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">Publicado el {{noticia.fecha|date:"d M Y"}}</div>
                             <!-- Post categories-->
-
-                                <a class="badge bg-secondary text-decoration-none link-light" href="?id={{noticia.categoria_noticias.id}}">{{noticia.categoria_noticias}}</a>
-                            
+                            {% with categoria_id=noticia.categoria_noticias.pk %}
+                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:inicio' %}?id={{ categoria_id }}">{{ noticia.categoria_noticias }}</a>
+                            {% endwith%}
                         </header>
                         <!-- Preview image figure-->
                         <figure class="mb-4"><img class="img-fluid rounded" src="{{noticia.imagen.url}}" alt="..." width = "900" /></figure>
@@ -73,14 +73,16 @@
                                 </form>
                                 <!-- Single comment-->
                                 {% for com in comentarios %}
-                                <div class="d-flex">
+                                <div class="d-flex ">
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">{{com.usuario}}</div>
                                         <p>{{com.texto}}
                                             {% if com.usuario_id == request.user.id %}
-                                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:borrar_comentario' com.id %}">Borrar comentario</a>
+                                            <div class="ms-3 justify-content-beetween">
+                                                <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'noticias:borrar_comentario' com.id %}">Borrar comentario</a>
                                             {% comment %} <a class= "borrar-comentario" href="{% url 'noticias:borrar_comentario' com.id %}">Borrar comentario</a> {% endcomment %}
+                                            </div>
                                             {% endif %}
                                         </p>
                                         
