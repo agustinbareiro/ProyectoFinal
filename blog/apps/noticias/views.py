@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Noticia, Categoria, Comentario
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.db.models import Q
+from .forms import ComentarioForm
+from django.http import HttpResponseRedirect
 
 #decorador para ver las noticias solamente como usuario logueado
 from django.contrib.auth.decorators import login_required
@@ -12,20 +14,7 @@ from django.contrib.auth.decorators import login_required
 #     # noticia = Noticia.objects.all()
 #     # ctx["noticias"] = noticia
 #     # return render(request, 'noticias/inicio.html', ctx)
-#     contexto={}
-#     id_categoria = request.GET.get('id', None)
 
-#     if id_categoria:
-#         v = Noticia.objects.filter(categoria_noticias = id_categoria)
-#     else:
-#         v = Noticia.objects.all() #una lista
-
-#     contexto['noticias'] = v
-
-#     cat = Categoria.objects.all().order_by('nombre')
-#     contexto['categorias'] = cat
-
-#     return render(request, 'noticias/inicio.html', contexto)
 def inicio(request):
     queryset = request.GET.get("search") 
     id_categoria = request.GET.get('id', None)
@@ -65,7 +54,14 @@ def Detalle_Noticias(request, pk):
 
     c = Comentario.objects.filter(noticia=n).order_by('-fecha')
     contexto['comentarios'] = c
-
+    noti = request.POST.get('id_noticia', None)
+    # Si se envía un formulario de edición, procesa los cambios en el comentario
+    if request.method == 'POST':
+        comentario_id = request.POST.get('comentario_id')
+        comentario = get_object_or_404(Comentario, pk=comentario_id, usuario=request.user)
+        comentario.texto = request.POST.get('texto')
+        comentario.save()
+    
     return render(request,'noticias/detail.html', contexto)
 
 @login_required
@@ -74,13 +70,13 @@ def Comentario_Noticia(request):
     user = request.user
     noti = request.POST.get('id_noticia', None)
     noticia = Noticia.objects.get(pk = noti)
-    coment = Comentario.objects.create(usuario= user, noticia= noticia, texto=comentario)
 
-    return redirect(reverse_lazy('noticias:detalle',kwargs={"pk":noti}))
+    coment = Comentario.objects.create(usuario= user, noticia= noticia, texto=comentario)
+    return HttpResponseRedirect(reverse('noticias:detalle', kwargs={"pk": noti}) + "#comments")
 
 @login_required
 def borrar_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, pk=comentario_id, usuario=request.user)
     noti_id = comentario.noticia.pk
     comentario.delete()
-    return redirect(reverse_lazy('noticias:detalle', kwargs={"pk": noti_id}))
+    return HttpResponseRedirect(reverse('noticias:detalle', kwargs={"pk": noti_id}) + "#comments")

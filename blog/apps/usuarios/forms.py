@@ -10,6 +10,7 @@ class RegistroForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(widget=forms.PasswordInput, required=True)
     
+    
     class Meta:
         model = Usuario
         fields = {
@@ -19,7 +20,7 @@ class RegistroForm(UserCreationForm):
             'username',
             'password1',
             'password2',
-            # 'avatar'
+            'avatar'
         }
 
 class ContactoForm(forms.ModelForm):

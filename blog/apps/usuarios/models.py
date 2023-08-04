@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class Usuario(AbstractUser):
-    avatar = models.ImageField(null=True, upload_to='usuarios')
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     pass
 
 class Contacto(models.Model):
