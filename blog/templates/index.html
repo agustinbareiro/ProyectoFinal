@@ -20,28 +20,20 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        {% comment %} <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index'%}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'noticias:inicio' %}">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a></li>
+                        <a class="nav-link active" aria-current="page" href="{% url 'index'%}">Inicio</a>
+                        <a class="nav-link" href="{% url 'noticias:inicio' %}">Noticias</a>
                         <a class="nav-link" href="{% url 'about'%}">Nosotros</a>
-                        <a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a> {% endcomment %}
-                            <a class="nav-link active" aria-current="page" href="{% url 'index'%}">Inicio</a>
-                            <a class="nav-link" href="{% url 'noticias:inicio' %}">Noticias</a>
-                            <a class="nav-link" href="{% url 'about'%}">Nosotros</a>
-                            <a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a>
-                            {% if user.is_authenticated %}
-                            <a class="btn btn-primary" href="{% url 'logout'%}">Cerrar sesión</a> 
-                                {% if user.is_staff%}   
-                                    <a class="btn btn-primary" href="{% url 'admin:index'%}">Panel de Administrador</a></li>    
-                                {% endif %}            
-                            {% else %}
-                            <a class="btn btn-primary" href="{% url 'login'%}">Iniciar sesión</a>
-                            <a class="btn btn-primary" href="{% url 'usuarios:register'%}">Registrarse</a></li>
+                        <a class="nav-link" href="{% url 'usuarios:contact' %}">Contacto</a>
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff%}   
+                                <a class="btn btn-primary me-1" href="{% url 'admin:index'%}">Panel de Administrador</a></li>    
                             {% endif %}
-                        
+                            <a class="btn btn-primary" href="{% url 'logout' %}?next={{ request.path }}">Cerrar sesión</a>
+                        {% else %}
+                            <a class="btn btn-primary me-1" href="{% url 'login' %}?next={{ request.path }}">Iniciar sesión</a>
+                            <a class="btn btn-primary" href="{% url 'usuarios:register'%}">Registrarse</a></li>
+                        {% endif %}
                     </ul>
-                    
                 </div>
             </div>
         </nav>
@@ -50,18 +42,6 @@
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
-                    {% comment %} <!-- Featured blog post-->
-                    {% for noticia in noticias %}
-                    <div class="card mb-4">
-                        <a href="{% url 'noticias:detalle' noticia.pk %}"><img class="card-img-top" src="{{noticia.imagen.url}}" alt=""></a>
-                        <div class="card-body">
-                            <div class="small text-muted">{{noticia.fecha|date:"d M Y"}} - {{noticia.categoria_noticias}}</div>
-                            <h2 class="card-title"><a href="{% url 'noticias:detalle' noticia.pk %}"><strong>{{noticia.titulo}}</strong></a></h2>
-                            <p class="card-text justificar-texto">{{ noticia.cuerpo|linebreaksbr|safe }}</p>
-                            <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Comentar</a>
-                        </div>
-                    </div>
-                    {% endfor %} {% endcomment %}
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         {% for noticia in noticias %}
@@ -72,44 +52,11 @@
                                 <div class="card-body">
                                     <div class="small text-muted">{{noticia.fecha|date:"d M Y"}}</div>
                                     <h2 class="card-title h4">{{noticia.titulo}}</h2>
-                                    {% comment %} <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p> {% endcomment %}
                                     <a class="btn btn-primary" href="{% url 'noticias:detalle' noticia.pk %}">Leer más →</a>
                                 </div>
                             </div>
-                            {% comment %} <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div> {% endcomment %}
                         </div>
                         {% endfor %}
-                        {% comment %} <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
                     </div>
                     <!-- MOSTRAR POR PÁGINAS EN NOTICIAS  -->
                     <nav aria-label="Pagination">
@@ -126,12 +73,8 @@
                         <div class="card-body">
                             <form method="get">  
                                 <div class="input-group">
-                                {% comment %} <form method="get">  {% endcomment %}
-                                    {% comment %} <input type="text" class="form-control" placeholder="Buscar..." name="buscar" value="{{request.GET.buscar}}"> {% endcomment %}
                                     <input class="form-control" type="text" placeholder="Buscar un artículo..." aria-label="Enter search term..." aria-describedby="button-search" name= "search"value="{{request.GET.buscar}}"/>
                                     <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
-                                    {% comment %} <button type="submit" class="btn btn-primary"id="button-search"> Buscar </button> {% endcomment %}     
-                                {% comment %} </form> {% endcomment %}
                                 </div>
                             </form>
                         </div>
@@ -148,52 +91,17 @@
                                     </ul>
                                 </div>
                                 {%endfor%}
-                                {% comment %} <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
-                    {% comment %} <!-- Side widget-->
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Ordenar por
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="?order_by=fecha_asc">Orden alfabético asc.</a></li>
-                          <li><a class="dropdown-item" href="?order_by=fecha_desc">Orden alfabético desc.</a></li>
-                          <li><a class="dropdown-item" href="?order_by=titulo_asc">Antigüedad asc.</a></li>
-                          <li><a class="dropdown-item" href="?order_by=titulo_desc">Antigüedad desc.</a></li>
-                        </ul>
-                    </div> {% endcomment %}
-                    {% comment %} <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
-        {% comment %} {%for noticia in noticias %}
-
-        <h3><a href="{% url 'noticias:detalle' noticia.pk %}">{{noticia.titulo}}</a></h3>
-        <p>{{noticia.fecha}}</p>    
-        <img src="{{noticia.imagen.url}}" alt="">
-
-        {%endfor%} {% endcomment %}
-
-
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; ARCADE 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
     </body>
 </html>

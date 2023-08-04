@@ -1,8 +1,15 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from apps.noticias.models import Noticia, Categoria
 from django.db.models import Q 
 
 # Create your views here.
+
+def login_redirect(request):
+    next_url = request.GET.get('next', None)
+    if next_url:
+        return redirect(next_url)
+    else:
+        return redirect('index')
 
 def home(request):
     queryset = request.GET.get("search") 
